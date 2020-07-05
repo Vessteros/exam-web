@@ -1,10 +1,10 @@
 <template>
-
+    
 </template>
 
 <script>
     export default {
-        name: "navbar"
+        name: "app-main"
     }
 </script>
 

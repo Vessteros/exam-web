@@ -4,4 +4,6 @@ import Vue from 'vue';
 export const eventbus = new Vue({ });
 
 /** Конфигурация компонента */
-export const config = { };
+export const config = {
+    getList: 'http://exam-2020-1-api.std-400.ist.mospolytech.ru/api/data1',
+};

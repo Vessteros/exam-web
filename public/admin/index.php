@@ -5,11 +5,10 @@
     <title>Экзамен</title>
     <link rel="stylesheet" href="/css/build.css">
 </head>
-
 <body>
 <div id="exam">
-    <navbar></navbar>
-    @yield('content')
+    <app-admin-header></app-admin-header>
+    <app-footer></app-footer>
 </div>
 <script src="/js/build.js"></script>
 </body>
