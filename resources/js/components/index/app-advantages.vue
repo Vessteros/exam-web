@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <div v-for="adv in advList" class="col-md-4">
-                    <div class="card mb-4 shadow-sm">
+                    <div class="card mb-4 shadow">
                         <img :src="adv.src" class="bd-placeholder-img card-img-top" width="100%" height="225"
                              alt="Responsive image">
                         <div class="card-body">

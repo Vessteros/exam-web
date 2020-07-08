@@ -17,7 +17,7 @@
                     <td>{{cafe.address}}</td>
                     <td>
                         <button class="btn  btn-sm btn-block bgbot" type="submit" data-toggle="modal"
-                                data-target="#exampleModal1" @click="setCafe(cafe.id)">Выбрать
+                                data-target="#orderModal1" @click="chooseCafe(cafe.id)">Выбрать
                         </button>
                     </td>
                 </tr>
@@ -44,7 +44,9 @@
                     </li>
                     <li class="page-item" v-if="paginationCount > 2" @click="pageNumber = paginationCount - 1"
                         style="cursor: pointer">
-                        <div class="page-link" :class="pageNumber === paginationCount - 1 ? 'link-active' : ''">{{paginationCount}}</div>
+                        <div class="page-link" :class="pageNumber === paginationCount - 1 ? 'link-active' : ''">
+                            {{paginationCount}}
+                        </div>
                     </li>
                     <li class="page-item" v-if="paginationCount - pageNumber > 1"
                         style="cursor: pointer" @click="pageNumber++">
@@ -89,7 +91,9 @@
 
             /** Список отображаемых заведений при пагинации */
             displayList: function () {
-                return this.cafeList.slice(this.pageNumStart, this.pageNumStart + 9)
+                return this.cafeList
+                    .slice(this.pageNumStart, this.pageNumStart + 9)
+                    .sort(this.compare);
             },
 
             range: function () {
@@ -144,11 +148,14 @@
                     .get(this.listRoutePath)
                     .then((response) => {
                         this.setFilterOptions(response.data);
+
+                        this.wholeCafeList = JSON.parse(JSON.stringify(response.data));
                         this.cafeList = this.$eventBus.listFilter !== null
                             ? this.$eventBus.listFilter(response.data)
                             : response.data;
 
-                        this.wholeCafeList = JSON.parse(JSON.stringify(response.data));
+                        this.cafeList.sort(this.compare);
+
                         this.setDefaultCafe();
                     })
                     .catch((reason) => {
@@ -186,11 +193,30 @@
                 this.setCafe(this.displayList[0].id);
             },
 
+            chooseCafe: function (id) {
+                this.setCafe(id)
+
+                this.$notify.info({
+                    title: 'Смена кафе',
+                    message: 'Посмотрите изменения меню для выбранного вами кафе c:'
+                });
+            },
+
             setCafe: function (id) {
-                this.$config.currentCafe = id;
+                this.$config.currentCafeId = id;
                 this.$config.orderList = [];
                 this.$eventBus.$emit('updateMenuList');
                 this.$eventBus.$emit('resetOrder');
+            },
+
+            compare: function (cafe1, cafe2) {
+                if (cafe1.rate > cafe2.rate) {
+                    return -1;
+                } else if (cafe2.rate > cafe1.rate) {
+                    return 1;
+                } else {
+                    return 0;
+                }
             }
         }
     }

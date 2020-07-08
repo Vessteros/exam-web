@@ -63,20 +63,13 @@
             };
         },
 
-        watch: {
-            cafeInfo: function () {
-                console.log(this.cafeInfo);
-            },
-        },
-
         mounted() {
-            this.getCafeDesc();
+            // this.getCafeDesc();
             this.$eventBus.$on('updateMenuList', this.getCafeInfo);
         },
 
         computed: {
             menu: function () {
-                console.log(this.cafeDesc)
                 return this.cafeDesc.map((currentValue, index) => {
                     let price = this.cafeInfo['set_' + ++index];
                     currentValue.basePrice = price.basePrice;
@@ -89,7 +82,7 @@
         methods: {
             getCafeInfo: function () {
                 this.$axios
-                    .get(this.$config.getListRoute + '/' + this.$config.currentCafe + this.$config.token)
+                    .get(this.$config.getListRoute + '/' + this.$config.currentCafeId + this.$config.token)
                     .then((response) => {
                         /** [@option 1.2] */
                         let data = response.data;
@@ -143,6 +136,9 @@
                             discountPrice: data.set_10 * discount
                         };
 
+                        this.$config.currentCafeObj = data;
+                        this.$eventBus.$emit('updateCafeInfo');
+
                         /** Придумать, как динамически подсасывать в 2 потока через watch */
                         this.getCafeDesc();
                     })
@@ -168,7 +164,7 @@
                             data.set_7,
                             data.set_8,
                             data.set_9,
-                            data.set_1,
+                            data.set_10,
                         ];
                     })
                     .catch((reason) => {

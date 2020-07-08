@@ -9,7 +9,8 @@ export const config = {
     getListRoute: 'http://exam-2020-1-api.std-900.ist.mospolytech.ru/api/data1',
     getCafeDesc: '/ajax/cafedesc.php',
 
-    currentCafe: 0,
+    currentCafeId: 0,
+    currentCafeObj: 0,
     useSocialDiscount: false,
     useDoubled: false,
     orderCost: 0,

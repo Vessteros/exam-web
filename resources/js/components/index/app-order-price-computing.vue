@@ -6,7 +6,7 @@
             </div>
             <div class="col-md-6 mb-3">
                 <button class="btn btn-warning btn-lg btn-block bgbot" type="submit" data-toggle="modal"
-                        data-target="#exampleModal" @click="updateOrderList">
+                        data-target="#orderModal" @click="updateOrderList">
                     Оформить заказ
                 </button>
             </div>
@@ -54,7 +54,6 @@
             },
 
             updateOrderList: function () {
-                console.log(this.$config.orderList);
                 this.$eventBus.$emit('updateOrderList');
             }
         },
