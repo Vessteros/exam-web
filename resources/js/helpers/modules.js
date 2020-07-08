@@ -1,9 +1,17 @@
 import Vue from 'vue';
 
 /** Шина ивентов */
-export const eventbus = new Vue({ });
+export const eventbus = new Vue({});
 
 /** Конфигурация компонента */
 export const config = {
-    getList: 'http://exam-2020-1-api.std-400.ist.mospolytech.ru/api/data1',
+    token: '?api_key=e133b1bd-913f-42e7-ba8b-d521b1250510',
+    getListRoute: 'http://exam-2020-1-api.std-900.ist.mospolytech.ru/api/data1',
+    getCafeDesc: '/ajax/cafedesc.php',
+
+    currentCafe: 0,
+    useSocialDiscount: false,
+    useDoubled: false,
+    orderCost: 0,
+    orderList: [],
 };

@@ -13,27 +13,42 @@
                 <tbody>
                 <tr v-for="cafe in displayList">
                     <th scope="row">{{cafe.name}}</th>
-                    <td>Сталовая</td>
-                    <td>Янтарная1</td>
+                    <td>{{cafe.typeObject}}</td>
+                    <td>{{cafe.address}}</td>
                     <td>
                         <button class="btn  btn-sm btn-block bgbot" type="submit" data-toggle="modal"
-                                data-target="#exampleModal1">Выбрать
+                                data-target="#exampleModal1" @click="setCafe(cafe.id)">Выбрать
                         </button>
                     </td>
                 </tr>
                 </tbody>
             </table>
 
-            <nav aria-label="Page navigation example">
+            <nav v-if="paginationCount > 1" aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
                     <li class="page-item" v-if="pageNumber > 0" style="cursor: pointer" @click="pageNumber--">
-                        <div class="page-link">Назад</div>
+                        <div class="page-link" :class="pageNumber === 0 ? 'link-active' : ''">Назад</div>
                     </li>
-                    <li class="page-item" v-for="i in paginationCount" @click="pageNumber = i">
-                        <div class="page-link">{{i}}</div>
+                    <li class="page-item" @click="pageNumber = 0" style="cursor: pointer">
+                        <div class="page-link">{{1}}</div>
                     </li>
-                    <li class="page-item">
-                        <div class="page-link" v-if="pageNumber < paginationCount" style="cursor: pointer" @click="pageNumber++">Вперед</div>
+                    <li class="page-item" v-if="pageNumber > 1">
+                        <div style="margin: 0 10px;">...</div>
+                    </li>
+                    <li class="page-item" v-if="paginationCount > 1" v-for="i in range"
+                        @click="pageNumber = i" style="cursor: pointer">
+                        <div class="page-link" :class="pageNumber === i ? 'link-active' : ''">{{i + 1}}</div>
+                    </li>
+                    <li class="page-item" v-if="paginationCount - pageNumber > 3">
+                        <div style="margin: 0 10px;">...</div>
+                    </li>
+                    <li class="page-item" v-if="paginationCount > 2" @click="pageNumber = paginationCount - 1"
+                        style="cursor: pointer">
+                        <div class="page-link" :class="pageNumber === paginationCount - 1 ? 'link-active' : ''">{{paginationCount}}</div>
+                    </li>
+                    <li class="page-item" v-if="paginationCount - pageNumber > 1"
+                        style="cursor: pointer" @click="pageNumber++">
+                        <div class="page-link">Вперед</div>
                     </li>
                 </ul>
             </nav>
@@ -57,19 +72,64 @@
             }
         },
 
+        watch: {
+            pageNumber: function () {
+                this.setDefaultCafe();
+            }
+        },
+
         computed: {
             paginationCount: function () {
-                return Math.ceil(this.wholeCafeList.length / 10)
+                return Math.ceil(this.cafeList.length / 10)
             },
 
-            pageNumStart: function() {
+            pageNumStart: function () {
                 return this.pageNumber * 10;
             },
 
             /** Список отображаемых заведений при пагинации */
             displayList: function () {
                 return this.cafeList.slice(this.pageNumStart, this.pageNumStart + 9)
-            }
+            },
+
+            range: function () {
+                let range = [];
+
+                if (this.pageNumber === 0) {
+                    range = [1,];
+
+                    if (2 < this.paginationCount) {
+                        range.push(2);
+                    }
+                } else if (this.pageNumber === this.paginationCount - 1) {
+                    if (this.paginationCount - 3 > 0) {
+                        range.push(this.paginationCount - 3);
+                    }
+                    if (this.paginationCount - 2 > 0) {
+                        range.push(this.paginationCount - 2);
+                    }
+                    if (this.paginationCount <= 2) {
+                        range.push(1);
+                    }
+                } else if (this.pageNumber > 0 && this.paginationCount - this.pageNumber >= 2) {
+                    if (this.pageNumber !== 1) { // чтобы убрать дублирование 1ой кнопки
+                        range.push(this.pageNumber - 1);
+                    }
+                    for (let i = this.pageNumber; i < this.pageNumber + 2; i++) {
+                        if (i !== this.paginationCount - 1) {
+                            range.push(i);
+                        }
+                    }
+                } else {
+                    range = [this.pageNumber];
+                }
+
+                return range;
+            },
+
+            listRoutePath: function () {
+                return this.$config.getListRoute + this.$config.token;
+            },
         },
 
         mounted() {
@@ -81,7 +141,7 @@
         methods: {
             getList: function () {
                 this.$axios
-                    .get(this.$config.getList)
+                    .get(this.listRoutePath)
                     .then((response) => {
                         this.setFilterOptions(response.data);
                         this.cafeList = this.$eventBus.listFilter !== null
@@ -89,6 +149,7 @@
                             : response.data;
 
                         this.wholeCafeList = JSON.parse(JSON.stringify(response.data));
+                        this.setDefaultCafe();
                     })
                     .catch((reason) => {
                         console.warn(reason);
@@ -117,7 +178,19 @@
             },
 
             filterList: function () {
+                this.pageNumber = 0;
                 this.cafeList = this.$eventBus.listFilter(this.wholeCafeList);
+            },
+
+            setDefaultCafe: function () {
+                this.setCafe(this.displayList[0].id);
+            },
+
+            setCafe: function (id) {
+                this.$config.currentCafe = id;
+                this.$config.orderList = [];
+                this.$eventBus.$emit('updateMenuList');
+                this.$eventBus.$emit('resetOrder');
             }
         }
     }

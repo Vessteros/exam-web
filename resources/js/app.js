@@ -34,6 +34,13 @@ Vue.component('app-index-pre-logic-desc', require('./components/index/app-pre-lo
 Vue.component('app-index-logic-main', require('./components/index/app-logic-main.vue').default);
 Vue.component('app-index-filter-form', require('./components/index/app-filter-form.vue').default);
 Vue.component('app-index-cafe-list', require('./components/index/app-cafe-list.vue').default);
+Vue.component('app-index-menu-list', require('./components/index/app-menu-list.vue').default);
+Vue.component('app-index-menu-set', require('./components/index/app-menu-set.vue').default);
+Vue.component('app-index-options-form', require('./components/index/app-options-form.vue').default);
+Vue.component('app-index-additional-options', require('./components/index/app-additional-options.vue').default);
+Vue.component('app-index-order-price-computing', require('./components/index/app-order-price-computing.vue').default);
+Vue.component('app-index-order-popup', require('./components/index/app-order-popup.vue').default);
+Vue.component('app-index-order-pos', require('./components/index/app-order-pos.vue').default);
 Vue.component('app-index-menu-separator', require('./components/index/app-menu-separator.vue').default);
 Vue.component('app-index-footer-separator', require('./components/index/app-footer-separator.vue').default);
 
