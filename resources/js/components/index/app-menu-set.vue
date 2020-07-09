@@ -42,18 +42,29 @@
         },
 
         watch: {
-
+            amount: function () {
+                if (this.obj.amount < 0) {
+                    this.obj.amount = 0;
+                } else {
+                    this.inputChange();
+                }
+            }
         },
 
         computed: {
             set: function () {
                 this.obj.set = this.set_data;
                 return this.set_data;
+            },
+
+            amount: function () {
+                return this.obj.amount;
             }
         },
 
         methods: {
             decrease: function () {
+                this.obj.amount = +this.obj.amount;
                 if (this.obj.amount > 1) {
                     this.obj.amount--;
                 } else if (this.obj.amount === 1) {
@@ -68,6 +79,7 @@
             },
 
             increase: function () {
+                this.obj.amount = +this.obj.amount;
                 this.obj.amount++;
                 if (!this.$config.orderList.includes(this.obj)) {
                     this.$config.orderList.push(this.obj);
@@ -81,9 +93,7 @@
             },
 
             inputChange: function () {
-                if (this.obj.amount < 0) {
-                    this.obj.amount = 0;
-                }
+                this.obj.amount = +this.obj.amount;
 
                 if (this.obj.amount > 0) {
                     if (!this.$config.orderList.includes(this.obj)) {
@@ -94,9 +104,9 @@
                     if (index !== -1) {
                         this.$config.orderList.splice(index, 1);
                     }
-
-                    this.$eventBus.$emit('recountOrder');
                 }
+
+                this.$eventBus.$emit('recountOrder');
             }
         },
     }
