@@ -13,3 +13,13 @@
 
 ***
 На работу было потрачено 25 часов.
+
+***
+
+Список лабораторных работ по порядку:
+
+1. [Лабораторная работа](http://lab1.std-1232.ist.mospolytech.ru)
+2. [Лабораторная работа](http://lab2.std-1232.ist.mospolytech.ru)
+3. [Лабораторная работа](http://lab3.std-1232.ist.mospolytech.ru)
+4. [Лабораторная работа](http://lab4.std-1232.ist.mospolytech.ru)
+5. [Лабораторная работа](http://tic-tac-toe.std-1232.ist.mospolytech.ru)
