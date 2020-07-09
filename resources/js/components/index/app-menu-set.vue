@@ -11,7 +11,7 @@
                     <div class="btn-group">
                         <button type="button" class="btn btn-sm btn-outline-secondary" @click="decrease">-
                         </button>
-                        <input type="email" class="form-control" v-model="obj.amount" @change="inputChange">
+                        <input type="text" class="form-control" v-model="obj.amount" @change="inputChange">
                         <button type="button" class="btn btn-sm btn-outline-secondary" @click="increase">+
                         </button>
                     </div>

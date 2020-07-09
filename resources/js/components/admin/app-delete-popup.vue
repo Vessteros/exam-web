@@ -51,7 +51,7 @@
                         if (response.data.error) {
                             this.$notify.error({
                                 title: 'Ошибка',
-                                message: 'Не удалось удалить заведение',
+                                message: 'Не удалось удалить заведение: ' + response.data.error,
                             });
                         } else {
                             this.$notify({

@@ -266,7 +266,7 @@
                         if (response.data.error) {
                             this.$notify.error({
                                 title: 'Ошибка',
-                                message: 'Не удалось добавить заведение'
+                                message: 'Не удалось добавить заведение: ' + response.data.error,
                             });
                         } else {
                             this.$notify({

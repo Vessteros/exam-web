@@ -34,7 +34,6 @@
 
         methods: {
             socialDiscount: function () {
-                console.log();
                 this.$config.useSocialDiscount = !this.$config.useSocialDiscount;
                 this.$eventBus.$emit('recountOrder');
             },

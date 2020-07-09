@@ -178,8 +178,8 @@
                     name: this.name,
                     admArea: this.admArea,
                     district: this.district,
-                    seatsCount_from: +this.seatsCount_from,
-                    seatsCount_to: +this.seatsCount_to,
+                    seatsCount_from: this.seatsCount_from,
+                    seatsCount_to: this.seatsCount_to,
                     isNetObject: +this.isNetObject,
                     created_at_from: this.created_at_from,
                     created_at_to: this.created_at_to,
@@ -192,24 +192,38 @@
                  * @param cafeList array
                  */
                 this.$eventBus.listFilter = (cafeList) => {
-                    // let _isNetObjectChecker = isNetObject => {
-                    //     return this.$config.filterValues.isNetObject !== 2
-                    //         ? isNetObject === this.$config.filterValues.isNetObject
-                    //         : true;
-                    // }
-                    //
-                    // let _seatsCountChecker = seatsCount => {
-                    //     let res = true;
-                    //     if (this.$config.filterValues.seatsCount_from !== '') {
-                    //         res = res && (seatsCount >= this.$config.filterValues.seatsCount_from);
-                    //     }
-                    //     if (this.$config.filterValues.seatsCount_to !== '') {
-                    //         res = res && (seatsCount <= this.$config.filterValues.seatsCount_to);
-                    //     }
-                    //
-                    //     return res;
-                    // }
-                    //
+                    let _created_at_Checker = created_at => {
+                        let res = true;
+                        let date = Date.parse(created_at);
+                        if (this.$config.filterValues.created_at_from !== '') {
+                            res = res && (date >= Date.parse(this.$config.filterValues.created_at_from));
+                        }
+                        if (this.$config.filterValues.created_at_to !== '') {
+                            res = res && (date <= Date.parse(this.$config.filterValues.created_at_to));
+                        }
+
+
+                        return res;
+                    }
+
+                    let _isNetObjectChecker = isNetObject => {
+                        return this.$config.filterValues.isNetObject !== 2
+                            ? isNetObject === this.$config.filterValues.isNetObject
+                            : true;
+                    }
+
+                    let _seatsCountChecker = seatsCount => {
+                        let res = true;
+                        if (this.$config.filterValues.seatsCount_from !== '') {
+                            res = res && (seatsCount >= +this.$config.filterValues.seatsCount_from);
+                        }
+                        if (this.$config.filterValues.seatsCount_to !== '') {
+                            res = res && (seatsCount <= +this.$config.filterValues.seatsCount_to);
+                        }
+
+                        return res;
+                    }
+
                     let _nameChecker = name => {
                         return this.$config.filterValues.name !== ''
                             ? name.indexOf(this.$config.filterValues.name) + 1
@@ -244,12 +258,12 @@
                         return cafeList.filter(cafe => {
                             return _admAreaChecker(cafe.admArea)
                                 && _nameChecker(cafe.name)
+                                && _created_at_Checker(cafe.created_at)
+                                && _isNetObjectChecker(cafe.isNetObject)
+                                && _seatsCountChecker(cafe.seatsCount)
                                 && _districtChecker(cafe.district)
                                 && _socialPrivilegesChecker(cafe.socialPrivileges)
                                 && _typeObjectChecker(cafe.typeObject);
-                            // && _isNetObjectChecker(cafe.isNetObject)
-                            // && _seatsCountChecker(cafe.seatsCount)
-                            // &&
                         });
                     }
 

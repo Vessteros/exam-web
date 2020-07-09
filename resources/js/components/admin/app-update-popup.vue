@@ -263,7 +263,7 @@
                         if (response.data.error) {
                             this.$notify.error({
                                 title: 'Ошибка',
-                                message: 'Не удалось загрузить данные заведение',
+                                message: 'Не удалось загрузить данные заведение: ' + response.data.error,
                             });
                         } else {
                             this.$notify({
@@ -301,7 +301,6 @@
                 )
                     .then((response) => {
                         if (response.data.error) {
-                            console.log(response.data);
                             this.$notify.error({
                                 title: 'Ошибка',
                                 message: 'Не удалось сохранить данные заведения: ' + response.data.error,
