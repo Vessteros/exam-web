@@ -178,11 +178,10 @@
                         this.setFilterOptions(response.data);
 
                         this.wholeCafeList = JSON.parse(JSON.stringify(response.data));
-                        // this.cafeList = this.$eventBus.listFilter !== null
-                        //     ? this.$eventBus.listFilter(response.data)
-                        //     : response.data;
+                        this.cafeList = this.$eventBus.listFilter !== null
+                            ? this.$eventBus.listFilter(response.data)
+                            : response.data;
 
-                        this.cafeList = response.data;
                         this.cafeList.sort(this.compare);
                     })
                     .catch((reason) => {
@@ -192,29 +191,16 @@
             },
 
             setFilterOptions: function (data) {
-                // this.$eventBus.filterOptions.admArea = new Set(data.map((cafe) => {
-                //     return cafe.admArea;
-                // }));
-                //
-                // this.$eventBus.filterOptions.district = new Set(data.map((cafe) => {
-                //     return cafe.district;
-                // }));
-                //
-                // this.$eventBus.filterOptions.socialDiscount = new Set(data.map((cafe) => {
-                //     return cafe.socialDiscount;
-                // }));
-                //
-                // this.$eventBus.filterOptions.typeObject = new Set(data.map((cafe) => {
-                //     return cafe.typeObject;
-                // }));
+                this.$eventBus.filterOptions.admArea        = new Set(data.map((cafe) => {return cafe.admArea;}));
+                this.$eventBus.filterOptions.district       = new Set(data.map((cafe) => {return cafe.district;}));
+                this.$eventBus.filterOptions.typeObject     = new Set(data.map((cafe) => {return cafe.typeObject;}));
 
-                // this.$eventBus.$emit('updateOptions');
+                this.$eventBus.$emit('updateOptions');
             },
 
             filterList: function () {
                 this.pageNumber = 0;
-                // this.cafeList = this.$eventBus.listFilter(this.wholeCafeList);
-                this.cafeList = this.wholeCafeList;
+                this.cafeList = this.$eventBus.listFilter(this.wholeCafeList);
             },
 
             compare: function (cafe1, cafe2) {

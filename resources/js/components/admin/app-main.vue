@@ -17,7 +17,16 @@
 
 <script>
     export default {
-        name: "app-main"
+        name: "app-main",
+        created() {
+            this.$eventBus.listFilter = null;
+
+            this.$eventBus.filterOptions = {
+                admArea: new Set,
+                district: new Set,
+                typeObject: new Set,
+            };
+        }
     }
 </script>
 

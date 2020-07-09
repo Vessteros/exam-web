@@ -74,6 +74,12 @@
             }
         },
 
+        mounted() {
+            this.getList();
+
+            this.$eventBus.$on('updateCafeList', this.filterList);
+        },
+
         watch: {
             pageNumber: function () {
                 this.setDefaultCafe();
@@ -136,12 +142,6 @@
             },
         },
 
-        mounted() {
-            this.getList();
-
-            this.$eventBus.$on('updateCafeList', this.filterList);
-        },
-
         methods: {
             getList: function () {
                 this.$axios
@@ -165,21 +165,9 @@
             },
 
             setFilterOptions: function (data) {
-                this.$eventBus.filterOptions.admArea = new Set(data.map((cafe) => {
-                    return cafe.admArea;
-                }));
-
-                this.$eventBus.filterOptions.district = new Set(data.map((cafe) => {
-                    return cafe.district;
-                }));
-
-                this.$eventBus.filterOptions.socialDiscount = new Set(data.map((cafe) => {
-                    return cafe.socialDiscount;
-                }));
-
-                this.$eventBus.filterOptions.typeObject = new Set(data.map((cafe) => {
-                    return cafe.typeObject;
-                }));
+                this.$eventBus.filterOptions.admArea = new Set(data.map((cafe) => {return cafe.admArea;}));
+                this.$eventBus.filterOptions.district = new Set(data.map((cafe) => {return cafe.district;}));
+                this.$eventBus.filterOptions.typeObject = new Set(data.map((cafe) => {return cafe.typeObject;}));
 
                 this.$eventBus.$emit('updateOptions');
             },

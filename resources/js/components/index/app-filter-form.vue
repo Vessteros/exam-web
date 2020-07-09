@@ -67,7 +67,6 @@
                 options: {
                     admArea: this.$eventBus.filterOptions.admArea,
                     district: this.$eventBus.filterOptions.district,
-                    socialPrivileges: this.$eventBus.filterOptions.socialPrivileges,
                     typeObject: this.$eventBus.filterOptions.typeObject,
                 }
             }

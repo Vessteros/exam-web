@@ -19,7 +19,6 @@
             this.$eventBus.filterOptions = {
                 admArea: new Set,
                 district: new Set,
-                socialDiscount: new Set,
                 typeObject: new Set,
             };
         }

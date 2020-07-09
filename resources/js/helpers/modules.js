@@ -17,4 +17,5 @@ export const config = {
     orderList: [],
 
     deliveryPrice: 250,
+    filterOptions: {},
 };

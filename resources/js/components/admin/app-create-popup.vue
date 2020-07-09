@@ -62,8 +62,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="admArea">Административный
-                                            округ</label>
+                                        <label for="admArea">Административный округ</label>
                                         <select id="admArea" class="form-control" name="admArea"
                                                 v-model="requestData.admArea">
                                             <option selected>Южно административный округ</option>
