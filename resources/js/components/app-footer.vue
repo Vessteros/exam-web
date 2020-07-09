@@ -4,8 +4,8 @@
             <p class="float-right">
                 <a class="btn bgbot" href="#" role="button">Вверx</a>
             </p>
-            <p>ООО "Служба доставки еды" - FAST DELIVERRY</p>
-            <p>Emaill - fastdeliveryinfo@gmail.com</p>
+            <p>ООО "Служба доставки еды" - MEH DELIVERRY</p>
+            <p>Emaill - mehdeliveryinfo@gmail.com</p>
             <p>Телефон - 8-300-555-40-33</p>
         </div>
     </footer>

@@ -24,7 +24,7 @@
                 </tbody>
             </table>
 
-            <nav v-if="paginationCount > 1" aria-label="Page navigation example">
+            <nav v-if="paginationCount > 1" aria-label="List navigation">
                 <ul class="pagination justify-content-center">
                     <li class="page-item" v-if="pageNumber > 0" style="cursor: pointer" @click="pageNumber--">
                         <div class="page-link" :class="pageNumber === 0 ? 'link-active' : ''">Назад</div>
@@ -186,7 +186,7 @@
 
             filterList: function () {
                 this.pageNumber = 0;
-                this.cafeList = this.$eventBus.listFilter(this.wholeCafeList);
+                this.cafeList = this.$eventBus.listFilter(this.wholeCafeList).sort(this.compare);
             },
 
             setDefaultCafe: function () {

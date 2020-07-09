@@ -6,7 +6,7 @@
                     <img src="/img/logo.png" alt="about" width="40" height="40" fill="none" stroke="currentColor"
                          stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2"
                          viewBox="0 0 24 24" focusable="false">
-                    <strong class="logotext">FAST </strong> <strong class="logotext1"> DELIVERRY</strong>
+                    <strong class="logotext">MEH </strong> <strong class="logotext1"> DELIVERRY</strong>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                         aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">

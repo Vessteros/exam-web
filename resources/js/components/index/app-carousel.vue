@@ -10,7 +10,7 @@
                 <img :src="slide.src" class="placeholder-img" width="100%" height="100%" alt="Responsive image">
                 <div class="container">
                     <div class="carousel-caption  bgcarousel text-left">
-                        <h1 class=" logotext">FAST<strong class="logotext1">DELIVERRY</strong></h1>
+                        <h1 class=" logotext">MEH<strong class="logotext1">DELIVERRY</strong></h1>
                         <p class="logotext1">{{slide.p}}</p>
 
                     </div>

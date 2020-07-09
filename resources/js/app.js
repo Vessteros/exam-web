@@ -46,6 +46,12 @@ Vue.component('app-index-footer-separator', require('./components/index/app-foot
 
 Vue.component('app-admin-header', require('./components/admin/app-header.vue').default);
 Vue.component('app-admin-main', require('./components/admin/app-main.vue').default);
+Vue.component('app-admin-page-title', require('./components/admin/app-page-title.vue').default);
+Vue.component('app-admin-filter-form', require('./components/admin/app-filter-form.vue').default);
+Vue.component('app-admin-delete-popup', require('./components/admin/app-delete-popup.vue').default);
+Vue.component('app-admin-update-popup', require('./components/admin/app-update-popup.vue').default);
+Vue.component('app-admin-create-popup', require('./components/admin/app-create-popup.vue').default);
+Vue.component('app-admin-cafe-list', require('./components/admin/app-cafe-list.vue').default);
 
 Vue.component('app-footer', require('./components/app-footer.vue').default);
 
