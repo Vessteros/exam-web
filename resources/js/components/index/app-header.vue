@@ -28,7 +28,7 @@
                             <a class="nav-link" href="#menu">Меню</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/">Админка</a>
+                            <a class="nav-link" href="/admin/">Административная панель</a>
                         </li>
                     </ul>
                 </div>

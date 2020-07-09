@@ -183,7 +183,7 @@
 
         computed: {
             deliveryPrice: function () {
-                return 250;
+                return this.$config.deliveryPrice;
             },
 
             orderPrice: function () {

@@ -4,6 +4,7 @@
             <div class="col-md-6 mb-3">
                 <label for="admArea">Административный округ</label>
                 <select class="custom-select d-block w-100" id="admArea" v-model="admArea">
+                    <option value="" selected>Не выбрано</option>
                     <option v-for="admArea in options.admArea">{{admArea}}</option>
                 </select>
                 <div class="invalid-feedback">
@@ -13,6 +14,7 @@
             <div class="col-md-6 mb-3">
                 <label for="district">Район</label>
                 <select class="custom-select d-block w-100" id="district" v-model="district">
+                    <option value="" selected>Не выбрано</option>
                     <option v-for="district in options.district">{{district}}</option>
                 </select>
                 <div class="invalid-feedback">
@@ -24,6 +26,7 @@
                     <div class="col-md-6 mb-3 type">
                         <label for="typeObject">Тип</label>
                         <select class="custom-select d-block w-100" id="typeObject" v-model="typeObject">
+                            <option value="" selected>Не выбрано</option>
                             <option v-for="typeObject in options.typeObject">{{typeObject}}</option>
                         </select>
                         <div class="invalid-feedback">
@@ -31,9 +34,11 @@
                         </div>
                     </div>
                     <div class="col-md-6 mb-3 type">
-                        <label for="socialDiscount">Соц. скидка</label>
-                        <select class="custom-select d-block w-100" id="socialDiscount" v-model="socialDiscount">
-                            <option v-for="socialDiscount in options.socialDiscount">{{socialDiscount}}</option>
+                        <label for="socialPrivileges">Соц. скидка</label>
+                        <select class="custom-select d-block w-100" id="socialPrivileges" v-model="socialPrivileges">
+                            <option value="2" selected>Не выбрано</option>
+                            <option value="1">Да</option>
+                            <option value="0">Нет</option>
                         </select>
                         <div class="invalid-feedback">
                             Пожалуйста выберите социальную скидку
@@ -54,15 +59,15 @@
         name: "app-filter-form",
         data: function () {
             return {
-                admArea: null,
-                district: null,
-                socialDiscount: null,
-                typeObject: null,
+                admArea: '',
+                district: '',
+                socialPrivileges: 2,
+                typeObject: '',
 
                 options: {
                     admArea: this.$eventBus.filterOptions.admArea,
                     district: this.$eventBus.filterOptions.district,
-                    socialDiscount: this.$eventBus.filterOptions.socialDiscount,
+                    socialPrivileges: this.$eventBus.filterOptions.socialPrivileges,
                     typeObject: this.$eventBus.filterOptions.typeObject,
                 }
             }
@@ -72,7 +77,7 @@
             let _updateOptions = () => {
                 this.options.admArea = this.$eventBus.filterOptions.admArea;
                 this.options.district = this.$eventBus.filterOptions.district;
-                this.options.socialDiscount = this.$eventBus.filterOptions.socialDiscount;
+                this.options.socialPrivileges = this.$eventBus.filterOptions.socialPrivileges;
                 this.options.typeObject = this.$eventBus.filterOptions.typeObject;
             }
 
@@ -90,35 +95,35 @@
                 this.$config.filterValues = {
                     admArea: this.admArea,
                     district: this.district,
-                    socialDiscount: this.socialDiscount,
+                    socialPrivileges: +this.socialPrivileges,
                     typeObject: this.typeObject
                 };
 
                 /**
-                 * Функция фильтрации списка кафе с апи
+                 * Функция фильтрации списка кафе
                  * @param cafeList array
                  */
                 this.$eventBus.listFilter = (cafeList) => {
                     let _admAreaChecker = admArea => {
-                        return this.$config.filterValues.admArea !== null
+                        return this.$config.filterValues.admArea !== ''
                             ? admArea === this.$config.filterValues.admArea
                             : true;
                     }
 
                     let _districtChecker = district => {
-                        return this.$config.filterValues.district !== null
+                        return this.$config.filterValues.district !== ''
                             ? district === this.$config.filterValues.district
                             : true;
                     }
 
-                    let _socialDiscountChecker = socialDiscount => {
-                        return this.$config.filterValues.socialDiscount !== null
-                            ? socialDiscount === this.$config.filterValues.socialDiscount
+                    let _socialPrivilegesChecker = socialPrivileges => {
+                        return this.$config.filterValues.socialPrivileges !== 2
+                            ? socialPrivileges === this.$config.filterValues.socialPrivileges
                             : true;
                     }
 
                     let _typeObjectChecker = typeObject => {
-                        return this.$config.filterValues.typeObject !== null
+                        return this.$config.filterValues.typeObject !== ''
                             ? typeObject === this.$config.filterValues.typeObject
                             : true;
                     }
@@ -127,7 +132,7 @@
                         return cafeList.filter(cafe => {
                             return _admAreaChecker(cafe.admArea)
                                 && _districtChecker(cafe.district)
-                                && _socialDiscountChecker(cafe.socialDiscount)
+                                && _socialPrivilegesChecker(cafe.socialPrivileges)
                                 && _typeObjectChecker(cafe.typeObject);
                         });
                     }

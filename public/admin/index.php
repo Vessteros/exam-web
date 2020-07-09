@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="utf-8">
-    <title>Экзамен админка</title>
+    <title>Административная панель</title>
     <link rel="stylesheet" href="/css/build.css">
 </head>
 <body>

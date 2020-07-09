@@ -15,4 +15,6 @@ export const config = {
     useDoubled: false,
     orderCost: 0,
     orderList: [],
+
+    deliveryPrice: 250,
 };

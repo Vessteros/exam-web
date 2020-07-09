@@ -11,7 +11,7 @@
                     <div class="btn-group">
                         <button type="button" class="btn btn-sm btn-outline-secondary" @click="decrease">-
                         </button>
-                        <input type="email" class="form-control" v-model="obj.amount">
+                        <input type="email" class="form-control" v-model="obj.amount" @change="inputChange">
                         <button type="button" class="btn btn-sm btn-outline-secondary" @click="increase">+
                         </button>
                     </div>
@@ -31,7 +31,6 @@
             return {
                 obj: {
                     amount: 0,
-                    doubledAmount: 0,
                     set: {},
                 }
             };
@@ -79,6 +78,25 @@
 
             resetAmount: function () {
                 this.obj.amount = 0;
+            },
+
+            inputChange: function () {
+                if (this.obj.amount < 0) {
+                    this.obj.amount = 0;
+                }
+
+                if (this.obj.amount > 0) {
+                    if (!this.$config.orderList.includes(this.obj)) {
+                        this.$config.orderList.push(this.obj);
+                    }
+                } else {
+                    let index = this.$config.orderList.indexOf(this.obj);
+                    if (index !== -1) {
+                        this.$config.orderList.splice(index, 1);
+                    }
+
+                    this.$eventBus.$emit('recountOrder');
+                }
             }
         },
     }
